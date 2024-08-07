@@ -36,6 +36,8 @@ PyInstaller is used to create the executable. Install it in your virtual environ
 
     pip install pyinstaller
 
+    pip install pycryptodome
+
 ### 5. Create the Executable
 
 Generate the executable using PyInstaller:
