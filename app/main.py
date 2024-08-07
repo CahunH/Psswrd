@@ -45,7 +45,6 @@ def print_help():
     print("  add       - Add a new password")
     print("  retrieve  - Retrieve a password")
     print("  list      - List all stored passwords")
-    print("  help      - Show this help message")
 
 def main():
     # Verificar si el script se está ejecutando con sudo
