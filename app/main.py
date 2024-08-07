@@ -56,7 +56,6 @@ def print_help():
     print("  delete    - Delete a password for a specific site")
 
 def main():
-    # Verificar si el script se está ejecutando con sudo
     if os.geteuid() != 0:
         print("Este script debe ejecutarse con sudo.")
         sys.exit(1)
@@ -65,7 +64,6 @@ def main():
     parser.add_argument('command', nargs='?', default='help', help='Command to run')
     args = parser.parse_args()
 
-    # Mostrar ayuda si se usa el comando 'help' o no se proporciona un comando
     if args.command == 'help' or args.command not in ['add', 'retrieve', 'list', 'create', 'delete']:
         print_help()
         sys.exit(0)
