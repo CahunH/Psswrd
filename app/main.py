@@ -38,6 +38,13 @@ def list_passwords_from_db():
     conn.close()
     return [site[0] for site in sites]
 
+def delete_password_from_db(site):
+    conn = sqlite3.connect('password_manager.db')
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM passwords WHERE site = ?', (site,))
+    conn.commit()
+    conn.close()
+
 def print_help():
     print("\nUsage:")
     print("  sudo psswrd [command]")
@@ -46,6 +53,7 @@ def print_help():
     print("  retrieve  - Retrieve a password")
     print("  list      - List all stored passwords")
     print("  create    - Create and store a secure password for a site")
+    print("  delete    - Delete a password for a specific site")
 
 def main():
     # Verificar si el script se está ejecutando con sudo
@@ -58,7 +66,7 @@ def main():
     args = parser.parse_args()
 
     # Mostrar ayuda si se usa el comando 'help' o no se proporciona un comando
-    if args.command == 'help' or args.command not in ['add', 'retrieve', 'list', 'create']:
+    if args.command == 'help' or args.command not in ['add', 'retrieve', 'list', 'create', 'delete']:
         print_help()
         sys.exit(0)
 
@@ -102,6 +110,11 @@ def main():
         password = generate_secure_password()
         add_password_to_db(key, site, password)
         print(f"Secure password for {site} created and added successfully: {password}")
+
+    elif args.command == 'delete':
+        site = input("Enter the site name: ")
+        delete_password_from_db(site)
+        print(f"Password for {site} deleted successfully!")
 
 if __name__ == '__main__':
     main()
