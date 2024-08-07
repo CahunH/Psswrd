@@ -8,7 +8,7 @@ setup(
     author_email='davidhvcahun@hotmail.com',
     packages=['app'],
     install_requires=[
-        # Lista de dependencias, si es necesario
+        # list
         # 'requests>=2.25.1',
     ],
     entry_points={
