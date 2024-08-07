@@ -2,7 +2,7 @@ import sqlite3
 import os
 import argparse
 import sys
-from app.manager import generate_key, save_key, load_key, add_password, retrieve_password, list_passwords
+from app.manager import generate_key, save_key, load_key, add_password, retrieve_password, list_passwords, generate_secure_password
 
 # Función para inicializar la base de datos
 def init_db():
@@ -45,6 +45,7 @@ def print_help():
     print("  add       - Add a new password")
     print("  retrieve  - Retrieve a password")
     print("  list      - List all stored passwords")
+    print("  create    - Create and store a secure password for a site")
 
 def main():
     # Verificar si el script se está ejecutando con sudo
@@ -57,7 +58,7 @@ def main():
     args = parser.parse_args()
 
     # Mostrar ayuda si se usa el comando 'help' o no se proporciona un comando
-    if args.command == 'help' or args.command not in ['add', 'retrieve', 'list']:
+    if args.command == 'help' or args.command not in ['add', 'retrieve', 'list', 'create']:
         print_help()
         sys.exit(0)
 
@@ -95,6 +96,12 @@ def main():
                 print(site)
         else:
             print("No passwords stored.")
+
+    elif args.command == 'create':
+        site = input("Enter the site name: ")
+        password = generate_secure_password()
+        add_password_to_db(key, site, password)
+        print(f"Secure password for {site} created and added successfully: {password}")
 
 if __name__ == '__main__':
     main()
